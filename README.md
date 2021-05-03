@@ -3,11 +3,12 @@
 ## Get Samples
 
 ```
-ssh della-gpu
-cd /scratch/gpfs/jdh4
-/usr/local/cuda-11.3/bin/cuda-install-samples-11.3.sh .
-cd NVIDIA_CUDA-11.3_Samples/1_Utilities/bandwidthTest
-make
+$ ssh della-gpu
+$ cd /scratch/gpfs/jdh4
+$ /usr/local/cuda-11.3/bin/cuda-install-samples-11.3.sh .
+$ cd NVIDIA_CUDA-11.3_Samples/1_Utilities/bandwidthTest
+$ module load cudatoolkit/11.3
+$ make
 $ ./bandwidthTest --device=all --memory=pinned --mode=range --start=1000000 --end=10000000 --increment=1000000 --htod --dtoh --dtod
 [CUDA Bandwidth Test] - Starting...
 
