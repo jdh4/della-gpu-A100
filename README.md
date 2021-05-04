@@ -91,16 +91,21 @@ GPU1 <-> CPU:
 Another approach:
 
 ```
-$ gpu5 --gres=gpu:2
+$ ssh della-i14g20
 $ nvidia-smi topo -m
 	GPU0	GPU1	mlx5_0	mlx5_1	CPU Affinity	NUMA Affinity
-GPU0	 X 	SYS	SYS	SYS	0	0-1
-GPU1	SYS	 X 	SYS	SYS	0	0-1
-mlx5_0	SYS	SYS	 X 	SYS		
-mlx5_1	SYS	SYS	SYS	 X 		
+GPU0	 X 	SYS	NODE	SYS	0-63	0
+GPU1	SYS	 X 	SYS	NODE	64-127	1
+mlx5_0	NODE	SYS	 X 	SYS		
+mlx5_1	SYS	NODE	SYS	 X 		
 
 Legend:
 
   X    = Self
   SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
 ```
