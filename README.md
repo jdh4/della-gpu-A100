@@ -64,3 +64,43 @@ Device to Host Bandwidth, 1 Device(s)
 1000000000 1251.4
 ```
 
+## Topology
+
+```
+#SBATCH --gres=gpu:2             # number of gpus per node
+#SBATCH --time=00:01:00          # total run time limit (HH:MM:SS)
+
+./topologyQuery
+```
+
+Output:
+
+```
+GPU0 <-> GPU1:
+  * Atomic Supported: no
+  * Perf Rank: 0
+GPU1 <-> GPU0:
+  * Atomic Supported: no
+  * Perf Rank: 0
+GPU0 <-> CPU:
+  * Atomic Supported: no
+GPU1 <-> CPU:
+  * Atomic Supported: no
+```
+
+Another approach:
+
+```
+$ gpu5 --gres=gpu:2
+$ nvidia-smi topo -m
+	GPU0	GPU1	mlx5_0	mlx5_1	CPU Affinity	NUMA Affinity
+GPU0	 X 	SYS	SYS	SYS	0	0-1
+GPU1	SYS	 X 	SYS	SYS	0	0-1
+mlx5_0	SYS	SYS	 X 	SYS		
+mlx5_1	SYS	SYS	SYS	 X 		
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+```
