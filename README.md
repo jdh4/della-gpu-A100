@@ -111,11 +111,17 @@ Legend:
 ```
 
 ```
-mlx5_0 appears to be Mellanox networ adapter
+mlx5_0 appears to be Mellanox network adapter
 The SYS indicates P2P and GPUDirectRDMA transactions cannot follow that path.
 The PHB (and PIX) indicates that the devices in question are on “the same PCIE fabric” - P2P or GPUDirect RDMA is possible.
 ```
 
+```
+[jdh4@della-i14g20 topologyQuery]$ cat /sys/bus/pci/drivers/nvidia/0000\:21\:00.0/local_cpulist 
+0-63
+[jdh4@della-i14g20 topologyQuery]$ cat /sys/bus/pci/drivers/nvidia/0000\:81\:00.0/local_cpulist 
+64-127
+```
 
 Traverse for reference:
 
