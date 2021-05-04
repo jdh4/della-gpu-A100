@@ -110,6 +110,13 @@ Legend:
   NV#  = Connection traversing a bonded set of # NVLinks
 ```
 
+```
+mlx5_0 appears to be Mellanox networ adapter
+The SYS indicates P2P and GPUDirectRDMA transactions cannot follow that path.
+The PHB (and PIX) indicates that the devices in question are on “the same PCIE fabric” - P2P or GPUDirect RDMA is possible.
+```
+
+
 Traverse for reference:
 
 ```
