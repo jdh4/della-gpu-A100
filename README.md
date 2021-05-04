@@ -109,3 +109,28 @@ Legend:
   PIX  = Connection traversing at most a single PCIe bridge
   NV#  = Connection traversing a bonded set of # NVLinks
 ```
+
+Traverse for reference:
+
+```
+$ nvidia-smi topo -m
+	GPU0	GPU1	GPU2	GPU3	mlx5_0	mlx5_1	mlx5_2	mlx5_3	CPU Affinity	NUMA Affinity
+GPU0	 X 	NV3	SYS	SYS	NODE	NODE	SYS	SYS	0-63	0
+GPU1	NV3	 X 	SYS	SYS	NODE	NODE	SYS	SYS	0-63	0
+GPU2	SYS	SYS	 X 	NV3	SYS	SYS	NODE	NODE	64-127	8
+GPU3	SYS	SYS	NV3	 X 	SYS	SYS	NODE	NODE	64-127	8
+mlx5_0	NODE	NODE	SYS	SYS	 X 	PIX	SYS	SYS		
+mlx5_1	NODE	NODE	SYS	SYS	PIX	 X 	SYS	SYS		
+mlx5_2	SYS	SYS	NODE	NODE	SYS	SYS	 X 	PIX		
+mlx5_3	SYS	SYS	NODE	NODE	SYS	SYS	PIX	 X 		
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+```
